@@ -35,13 +35,13 @@ OBJSBNS=${BONUS:.c=.o}
 all : $(NAME) $(NAME_BONUS)
 
 $(NAME) : $(OBJS) 
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -I$(INCS)
+	$(CC) $(CFLAGS) -g -o $(NAME) $(OBJS) -I$(INCS)
 
 $(NAME_BONUS) : $(OBJSBNS)
-	$(CC) $(CFLAGS) -o $(NAME_BONUS) $(OBJSBNS) -I$(INCS)
+	$(CC) $(CFLAGS) -g -o $(NAME_BONUS) $(OBJSBNS) -I$(INCS)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@ -I$(INCS)
+	$(CC) $(CFLAGS) -g -c $< -o $@ -I$(INCS)
 
 clean:
 	rm -f $(OBJS) $(OBJSBNS)
