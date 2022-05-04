@@ -17,14 +17,14 @@ NAME_BONUS=checker
 SRCSDIR=./
 INCS=./
 SRCS=main.c main_utils.c\
-	 list_1.c list_2.c list_3.c\
-	 ft_strtol.c utils.c\
-	 process.c process_utils.c print.c
+	list_1.c list_2.c list_3.c\
+	ft_strtol.c utils.c\
+	process.c process_utils.c print.c
 BONUS=main_checker.c main_utils.c print.c\
-	  list_1.c list_2.c list_3.c\
-	  ft_strtol.c utils.c\
-	  get_next_line.c get_next_line_utils.c\
-	  execute.c
+	list_1.c list_2.c list_3.c\
+	ft_strtol.c utils.c\
+	get_next_line.c get_next_line_utils.c\
+	execute.c
 
 OBJS=${SRCS:.c=.o}
 

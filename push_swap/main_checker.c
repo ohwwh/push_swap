@@ -52,7 +52,7 @@ int	main(int argc, char *argv[])
 	if (dup_check(a))
 		return (end_return(-1, &a, &b));
 	b = 0;
-	//return (end_return(process_parse(&a, &b, argc), &a, &b));
-	end_return(process_parse(&a, &b, argc), &a, &b);
+	return (end_return(process_parse(&a, &b, argc), &a, &b));
+	//end_return(process_parse(&a, &b, argc), &a, &b);
 	while (1);
 }
