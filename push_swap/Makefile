@@ -50,4 +50,6 @@ fclean: clean
 	rm -f $(NAME)
 	rm -f $(NAME_BONUS)
 
-re: fclean all
+re: 
+	make fclean
+	make all
