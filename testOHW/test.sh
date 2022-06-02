@@ -15,9 +15,15 @@ while [ $n -lt 100 ];do
 	str=$(../${DIR}/push_swap $ARG | ../${DIR}/${CHECKER} $ARG)
 	if [ $str == "OK" ]; then
 		l=$(../${DIR}/push_swap $ARG | wc -l)
+	else
+		echo "checker test fail!"
+		echo $ARG > checker_fail.log
 	fi
 	if [ $l -gt $max ];then
 		max=$l
+		if [ $l -gt 5500 ];then
+			echo $ARG > outofrange.log
+		fi
 	fi
 	total=$(($total + $l))
 	avg=`echo "scale=2;$total/$n" | bc`

@@ -1,0 +1,3 @@
+/Users/ohw/OHW/42Seoul/push_swap/viewer/build/_deps/catch2-subbuild/CMakeFiles/rebuild_cache.dir
+/Users/ohw/OHW/42Seoul/push_swap/viewer/build/_deps/catch2-subbuild/CMakeFiles/edit_cache.dir
+/Users/ohw/OHW/42Seoul/push_swap/viewer/build/_deps/catch2-subbuild/CMakeFiles/catch2-populate.dir
