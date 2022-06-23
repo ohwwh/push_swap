@@ -18,10 +18,22 @@
 # define LONG_MIN -9223372036854775808U
 # define INT_MAX 2147483647
 # define INT_MIN -2147483648
+# define PA 1
+# define PB 2
+# define SA 3
+# define SB 4
+# define RA 5
+# define RB 6
+# define RR 7
+# define RRA 8
+# define RRB 9
+# define RRR 10
 
 typedef struct s_list
 {
 	int				content;
+	int				state;
+	int				count_a;
 	struct s_list	*next;
 	struct s_list	*prev;
 }t_list;
@@ -45,16 +57,14 @@ void	ft_putstr_fd(char *s, int fd);
 int		ft_strcmp(char *s1, char *s2);
 long	ft_strtol(const char *str);
 int		ft_strtol_error(const char *str);
-void	print_non_rotate(char *command, t_list **lstA, t_list **lstB);
-void	print_rotate(char *command, t_list **lstA, t_list **lstB);
+void	print_non_rotate(int command, t_list **lstA, t_list **lstB);
+void	print_rotate(int command, t_list **lstA, t_list **lstB);
 int		print_error(void);
 int		count_a(t_list *lstA, int num, int sizeA, int state);
 int		count_all(int count_a, int count_b);
-int		opt_front(t_list *lstA, t_list *lstB, int sizeA, int state);
-int		opt_reverse(t_list *lstA, t_list *lstB, int sizeA, int state);
-int		opt(t_list *lstA, t_list *lstB, int sizeA, int state);
+int		opt(t_list *lstA, t_list *lstB, int sizeA, int sizeb, int state);
 void	process_main(t_list **lstA, t_list **lstB, int sizeA, int sizeB);
-void	process_final(t_list **A, int size);
+void	process_final(t_list **A);
 int		end_return(int ret, t_list **lstA, t_list **lstB);
 void	ft_bzero(void *s, size_t n);
 int		execute(char *command, t_list **lstA, t_list **lstB);

@@ -12,23 +12,23 @@
 
 #include "push_swap.h"
 
-void	process_final(t_list **A, int size)
+void	process_final(t_list **A)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	j = count_state(*A, size);
-	if (size / 2 < j)
+	j = (*A)->state;
+	if (j < 0)
 	{
-		j = size - j;
+		j *= -1;
 		while (i ++ < j)
-			print_rotate("rra\n", A, 0);
+			print_rotate(RRA, A, 0);
 	}
 	else
 	{
 		while (i ++ < j)
-			print_rotate("ra\n", A, 0);
+			print_rotate(RA, A, 0);
 	}
 }
 
@@ -53,6 +53,6 @@ int	main(int argc, char *argv[])
 		return (end_return(-1, &a, &b));
 	b = 0;
 	process_main(&a, &b, argc - 1, 0);
-	process_final(&a, argc - 1);
+	process_final(&a);
 	return (end_return(0, &a, &b));
 }

@@ -96,6 +96,8 @@ int	count_state(t_list *lst, int size)
 	}
 	if (i == size)
 		i = 0;
+	else if (i > size - i)
+		return (-(size - i));
 	return (i);
 }
 

@@ -22,13 +22,14 @@ int	count_a(t_list *lstA, int num, int sizeA, int state)
 	temp = lstA -> prev;
 	i = 0;
 	j = 0;
-	while (i ++ < sizeA && num > lstA -> content)
+	while (i < sizeA && num > lstA -> content)
+	{
 		lstA = lstA -> next;
-	lstA = temp;
-	while (j ++ < sizeA && num < lstA -> content)
-		lstA = lstA -> prev;
-	i = (i - 1 + state) % sizeA;
-	j = (j - 1 + sizeA - state) % sizeA;
+		i ++;
+	}
+	j = sizeA - i;
+	i = (i + state) % sizeA;
+	j = (j + sizeA - state) % sizeA;
 	if (i <= j)
 		return (i);
 	else
@@ -56,61 +57,34 @@ int	count_all(int count_a, int count_b)
 	return (ret);
 }
 
-int	opt_front(t_list *lstA, t_list *lstB, int sizeA, int state)
+int	opt(t_list *lstA, t_list *lstB, int sizeA, int sizeb, int state)
 {
 	int			min;
 	int			i;
 	int			j;
+	int			t;
 	int			m;
-	const int	sizeb = get_size(lstB);
+	//const int	sizeb = get_size(lstB);
 
 	i = 0;
 	min = 99999;
 	while (i ++ < sizeb)
 	{
-		m = count_all(count_a(lstA, lstB -> content, sizeA, state), i - 1);
+		t = count_a(lstA, lstB -> content, sizeA, state);
+		lstB -> count_a = t;
+		m = count_all(t, i - 1);
 		if (m < min)
 		{
 			min = m;
 			j = i - 1;
 		}
-		lstB = lstB -> next;
-	}
-	return (j);
-}
-
-int	opt_reverse(t_list *lstA, t_list *lstB, int sizeA, int state)
-{
-	int			min;
-	int			i;
-	int			j;
-	int			m;
-	const int	sizeb = get_size(lstB);
-
-	i = 1;
-	min = 99999;
-	while (i ++ <= sizeb)
-	{
-		m = count_all(count_a(lstA, lstB -> content, sizeA, state), -(i - 1));
+		m = count_all(t, -1 * (sizeb - (i - 1)));
 		if (m < min)
 		{
 			min = m;
-			j = -(i - 1);
+			j = -1 * (sizeb - (i - 1));
 		}
-		lstB = lstB -> prev;
+		lstB = lstB -> next;
 	}
 	return (j);
-}
-
-int	opt(t_list *lstA, t_list *lstB, int sizeA, int state)
-{
-	const int	f = opt_front(lstA, lstB, sizeA, state);
-	const int	r = opt_reverse(lstA, lstB -> prev, sizeA, state);
-	const int	af = count_a(lstA, search(lstB, f)->content, sizeA, state);
-	const int	ar = count_a(lstA, search(lstB, r)->content, sizeA, state);
-
-	if (count_all(af, f) <= count_all(ar, r))
-		return (f);
-	else
-		return (r);
 }

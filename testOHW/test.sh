@@ -10,7 +10,7 @@ avg=0
 gcc r.c -o r
 
 
-while [ $n -lt 100 ];do
+while [ $n -lt $2 ];do
 	ARG=$(./r $1)
 	str=$(../${DIR}/push_swap $ARG | ../${DIR}/${CHECKER} $ARG)
 	if [ $str == "OK" ]; then

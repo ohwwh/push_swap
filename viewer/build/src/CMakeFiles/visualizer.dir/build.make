@@ -93,7 +93,7 @@ visualizer_EXTERNAL_OBJECTS =
 bin/visualizer: src/CMakeFiles/visualizer.dir/main.cpp.o
 bin/visualizer: src/CMakeFiles/visualizer.dir/build.make
 bin/visualizer: src/libVisualizerLib.a
-bin/visualizer: _deps/imgui-sfml-build/libImGui-SFML.a
+bin/visualizer: _deps/imgui-sfml-build/libImGui-SFML.dylib
 bin/visualizer: _deps/sfml-build/lib/libsfml-graphics.2.5.1.dylib
 bin/visualizer: _deps/sfml-build/lib/libsfml-window.2.5.1.dylib
 bin/visualizer: _deps/sfml-build/lib/libsfml-system.2.5.1.dylib

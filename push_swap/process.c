@@ -15,9 +15,10 @@
 static void	process_2(t_list **lstA)
 {
 	if ((*lstA)->content > (*lstA)->next -> content)
-		print_non_rotate("sa\n", lstA, 0);
+		print_non_rotate(SA, lstA, 0);
 	else
 		return ;
+	(*lstA)->state = 0;
 }
 
 static void	process_3(t_list **lstA)
@@ -30,20 +31,21 @@ static void	process_3(t_list **lstA)
 		return ;
 	else if (num1 <= num3 && num3 <= num2)
 	{
-		print_non_rotate("sa\n", lstA, 0);
-		print_rotate("ra\n", lstA, 0);
+		print_non_rotate(SA, lstA, 0);
+		print_rotate(RA, lstA, 0);
 	}
 	else if (num2 <= num1 && num1 <= num3)
-		print_non_rotate("sa\n", lstA, 0);
+		print_non_rotate(SA, lstA, 0);
 	else if (num2 <= num3 && num3 <= num1)
-		print_rotate("ra\n", lstA, 0);
+		print_rotate(RA, lstA, 0);
 	else if (num3 <= num1 && num1 <= num2)
-		print_rotate("rra\n", lstA, 0);
+		print_rotate(RRA, lstA, 0);
 	else if (num3 <= num2 && num2 <= num1)
 	{
-		print_non_rotate("sa\n", lstA, 0);
-		print_rotate("rra\n", lstA, 0);
+		print_non_rotate(SA, lstA, 0);
+		print_rotate(RRA, lstA, 0);
 	}
+	(*lstA)->state = 0;
 }
 
 static void	process_main_case_1(int i, int j, t_list **lstA, t_list **lstB)
@@ -54,24 +56,24 @@ static void	process_main_case_1(int i, int j, t_list **lstA, t_list **lstB)
 	if (j >= 0)
 	{
 		while (k ++ < smaller(i, j))
-			print_rotate("rr\n", lstA, lstB);
+			print_rotate(RR, lstA, lstB);
 		if (i <= j)
 		{
 			while (k ++ <= j)
-				print_rotate("ra\n", lstA, lstB);
+				print_rotate(RA, lstA, lstB);
 		}
 		else
 		{
 			while (k ++ <= i)
-				print_rotate("rb\n", lstA, lstB);
+				print_rotate(RB, lstA, lstB);
 		}
 	}
 	else
 	{
 		while (k ++ < i)
-			print_rotate("rb\n", lstA, lstB);
+			print_rotate(RB, lstA, lstB);
 		while (k ++ <= abs(j) + i)
-			print_rotate("rra\n", lstA, lstB);
+			print_rotate(RRA, lstA, lstB);
 	}
 }
 
@@ -83,24 +85,24 @@ static void	process_main_case_2(int i, int j, t_list **lstA, t_list **lstB)
 	if (j < 0)
 	{
 		while (k ++ < abs(bigger(i, j)))
-			print_rotate("rrr\n", lstA, lstB);
+			print_rotate(RRR, lstA, lstB);
 		if (i >= j)
 		{
 			while (k ++ <= abs(j))
-				print_rotate("rra\n", lstA, lstB);
+				print_rotate(RRA, lstA, lstB);
 		}
 		else
 		{
 			while (k ++ <= abs(i))
-				print_rotate("rrb\n", lstA, lstB);
+				print_rotate(RRB, lstA, lstB);
 		}
 	}
 	else
 	{
 		while (k ++ < abs(i))
-			print_rotate("rrb\n", lstA, lstB);
+			print_rotate(RRB, lstA, lstB);
 		while (k ++ <= j + abs(i))
-			print_rotate("ra\n", lstA, lstB);
+			print_rotate(RA, lstA, lstB);
 	}
 }
 
@@ -108,6 +110,7 @@ void	process_main(t_list **lstA, t_list **lstB, int sizeA, int sizeB)
 {
 	int	i;
 	int	j;
+	int	t;
 
 	if (sizeA == 2)
 		process_2(lstA);
@@ -117,15 +120,36 @@ void	process_main(t_list **lstA, t_list **lstB, int sizeA, int sizeB)
 	{
 		if (is_sorted((*lstA), sizeA) != -1)
 			return ;
-		print_non_rotate("pb\n", lstA, lstB);
+		print_non_rotate(PB, lstA, lstB);
 		process_main(lstA, lstB, sizeA - 1, sizeB + 1);
-		i = opt(*lstA, *lstB, sizeA - 1, count_state(*lstA, sizeA - 1));
-		j = count_state(*lstA, sizeA - 1);
-		j = count_a(*lstA, search(*lstB, i)->content, sizeA - 1, j);
+		j = (*lstA)->state;
+		i = opt(*lstA, *lstB, sizeA - 1, sizeB + 1, j);
+		j = search(*lstB, i) -> count_a;
+		t = (*lstA)->state - j;
+		if (t >= 0)
+		{
+			t = t % (sizeA - 1);
+			if (t > (sizeA - 1) - t)
+				t = -((sizeA - 1) - t);
+			else
+			{
+				if (t == 0 && search(*lstB, i)->content <= (*lstA)->content)
+					t = 0;
+				else	
+					t = (t + 1) % (sizeA - 1);
+			}
+		}
+		else
+		{
+			t = -((-t) % (sizeA - 1));
+			if (-t > (sizeA - 1) - (-t))
+				t = ((sizeA - 1) - (-t) + 1) % (sizeA - 1);
+		}
 		if (i >= 0)
 			process_main_case_1(i, j, lstA, lstB);
 		else
 			process_main_case_2(i, j, lstA, lstB);
-		print_non_rotate("pa\n", lstA, lstB);
+		print_non_rotate(PA, lstA, lstB);
+		(*lstA)->state = t;
 	}
 }

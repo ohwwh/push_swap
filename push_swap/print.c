@@ -12,42 +12,66 @@
 
 #include "push_swap.h"
 
-void	print_non_rotate(char *command, t_list **lstA, t_list **lstB)
+void	print_command(int command)
 {
-	ft_putstr_fd(command, 1);
-	if (!ft_strcmp(command, "sa\n"))
+	if (command == PA)
+		ft_putstr_fd("pa\n", 1);
+	else if (command == PB)
+		ft_putstr_fd("pb\n", 1);
+	else if (command == SA)
+		ft_putstr_fd("sa\n", 1);
+	else if (command == SB)
+		ft_putstr_fd("sb\n", 1);
+	else if (command == RA)
+		ft_putstr_fd("ra\n", 1);
+	else if (command == RB)
+		ft_putstr_fd("rb\n", 1);
+	else if (command == RR)
+		ft_putstr_fd("rr\n", 1);
+	else if (command == RRA)
+		ft_putstr_fd("rra\n", 1);
+	else if (command == RRB)
+		ft_putstr_fd("rrb\n", 1);
+	else if (command == RRR)
+		ft_putstr_fd("rrr\n", 1);
+}
+
+void	print_non_rotate(int command, t_list **lstA, t_list **lstB)
+{
+	print_command(command);
+	if (command == SA)
 		swap_stack(lstA);
-	else if (!ft_strcmp(command, "sb\n"))
+	else if (command == SB)
 		swap_stack(lstB);
-	else if (!ft_strcmp(command, "pa\n") && *lstB)
+	else if (command == PA && (*lstB) != 0)
 	{
 		push((*lstB)->content, lstA, lstB);
 		pop(lstB);
 	}
-	else if (!ft_strcmp(command, "pb\n") && *lstA)
+	else if (command == PB && (*lstA) != 0)
 	{
 		push((*lstA)->content, lstB, lstA);
 		pop(lstA);
 	}
 }
 
-void	print_rotate(char *command, t_list **lstA, t_list **lstB)
+void	print_rotate(int command, t_list **lstA, t_list **lstB)
 {
-	ft_putstr_fd(command, 1);
-	if (!ft_strcmp(command, "ra\n"))
+	print_command(command);
+	if (command == RA)
 		rotate(lstA);
-	else if (!ft_strcmp(command, "rb\n"))
+	else if (command == RB)
 		rotate(lstB);
-	else if (!ft_strcmp(command, "rr\n"))
+	else if (command == RR)
 	{
 		rotate(lstA);
 		rotate(lstB);
 	}
-	else if (!ft_strcmp(command, "rra\n"))
+	else if (command == RRA)
 		reverse_rotate(lstA);
-	else if (!ft_strcmp(command, "rrb\n"))
+	else if (command == RRB)
 		reverse_rotate(lstB);
-	else if (!ft_strcmp(command, "rrr\n"))
+	else if (command == RRR)
 	{
 		reverse_rotate(lstA);
 		reverse_rotate(lstB);
