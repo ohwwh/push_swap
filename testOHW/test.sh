@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DIR="push_swap"
+DIR="SamLynnEvans"
 CHECKER="checker"
 total=0
 l=0

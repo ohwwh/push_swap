@@ -108,9 +108,10 @@ static void	process_main_case_2(int i, int j, t_list **lstA, t_list **lstB)
 
 void	process_main(t_list **lstA, t_list **lstB, int sizeA, int sizeB)
 {
-	int	i;
-	int	j;
-	int	t;
+	int		i;
+	int		j;
+	int		t;
+	t_list *opt;
 
 	if (sizeA == 2)
 		process_2(lstA);
@@ -123,28 +124,10 @@ void	process_main(t_list **lstA, t_list **lstB, int sizeA, int sizeB)
 		print_non_rotate(PB, lstA, lstB);
 		process_main(lstA, lstB, sizeA - 1, sizeB + 1);
 		j = (*lstA)->state;
-		i = opt(*lstA, *lstB, sizeA - 1, sizeB + 1, j);
-		j = search(*lstB, i) -> count_a;
-		t = (*lstA)->state - j;
-		if (t >= 0)
-		{
-			t = t % (sizeA - 1);
-			if (t > (sizeA - 1) - t)
-				t = -((sizeA - 1) - t);
-			else
-			{
-				if (t == 0 && search(*lstB, i)->content <= (*lstA)->content)
-					t = 0;
-				else	
-					t = (t + 1) % (sizeA - 1);
-			}
-		}
-		else
-		{
-			t = -((-t) % (sizeA - 1));
-			if (-t > (sizeA - 1) - (-t))
-				t = ((sizeA - 1) - (-t) + 1) % (sizeA - 1);
-		}
+		i = find_optimal(*lstA, *lstB, sizeA - 1, sizeB + 1);
+		opt = search(*lstB, i);
+		j = opt -> count_a;
+		t = get_state(*lstA, opt, sizeA - 1);
 		if (i >= 0)
 			process_main_case_1(i, j, lstA, lstB);
 		else

@@ -12,6 +12,33 @@
 
 #include "push_swap.h"
 
+int	get_state(t_list *lstA, t_list *opt, int sizeA)
+{
+	int	t;
+
+	t = lstA->state - opt->count_a;
+	if (t >= 0)
+	{
+		t = t % sizeA;
+		if (t > sizeA - t)
+			t = -(sizeA - t);
+		else
+		{
+			if (t == 0 && opt->content <= lstA->content)
+				t = 0;
+			else	
+				t = (t + 1) % sizeA;
+		}
+	}
+	else
+	{
+		t = -((-t) % sizeA);
+		if (-t > sizeA - (-t))
+			t = (sizeA - (-t) + 1) % sizeA;
+	}
+	return (t);
+}
+
 int	count_a(t_list *lstA, int num, int sizeA, int state)
 {
 	int		i;
@@ -57,7 +84,7 @@ int	count_all(int count_a, int count_b)
 	return (ret);
 }
 
-int	opt(t_list *lstA, t_list *lstB, int sizeA, int sizeb, int state)
+int	find_optimal(t_list *lstA, t_list *lstB, int sizeA, int sizeb)
 {
 	int			min;
 	int			i;
@@ -70,7 +97,7 @@ int	opt(t_list *lstA, t_list *lstB, int sizeA, int sizeb, int state)
 	min = 99999;
 	while (i ++ < sizeb)
 	{
-		t = count_a(lstA, lstB -> content, sizeA, state);
+		t = count_a(lstA, lstB -> content, sizeA, lstA->state);
 		lstB -> count_a = t;
 		m = count_all(t, i - 1);
 		if (m < min)
