@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DIR="SamLynnEvans"
+DIR="push_swap"
 CHECKER="checker"
 total=0
 l=0
@@ -8,6 +8,7 @@ n=1
 max=0
 avg=0
 gcc r.c -o r
+cnt=0
 
 
 while [ $n -lt $2 ];do
@@ -22,6 +23,7 @@ while [ $n -lt $2 ];do
 	if [ $l -gt $max ];then
 		max=$l
 		if [ $l -gt 5500 ];then
+			echo  "out of range"
 			echo $ARG > outofrange.log
 		fi
 	fi
@@ -31,5 +33,7 @@ while [ $n -lt $2 ];do
 	n=$(($n + 1))
 done
 
+echo -n "average: "
 echo $avg
+echo -n "max: "
 echo $max
