@@ -20,10 +20,12 @@ while [ $n -lt $2 ];do
 		echo "checker test fail!"
 		echo $ARG > checker_fail.log
 	fi
+	if [ $l -gt 5300 ];then
+		cnt=$(($cnt + 1))
+	fi
 	if [ $l -gt $max ];then
 		max=$l
-		if [ $l -gt 5500 ];then
-			echo  "out of range"
+		if [ $l -gt 5300 ];then
 			echo $ARG > outofrange.log
 		fi
 	fi
@@ -33,7 +35,12 @@ while [ $n -lt $2 ];do
 	n=$(($n + 1))
 done
 
+#cnt=$(($cnt / $2 * 100))
+cnt=$(($cnt))
+
 echo -n "average: "
 echo $avg
 echo -n "max: "
 echo $max
+echo -n "out of range: "
+echo $cnt
